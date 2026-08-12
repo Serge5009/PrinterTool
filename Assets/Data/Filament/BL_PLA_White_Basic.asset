@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FilamentProfileSO
   uniqueId: BL_PLA_White_Basic
   brand: {fileID: 11400000, guid: a89e39dfbab81444caed78f49928ddfa, type: 2}
-  itemName: White Basic
+  itemName: White
   icon: {fileID: 0}
   description: 
   materialFamily: {fileID: 11400000, guid: 84e08aa5b948f334e80f3a99576f6223, type: 2}
