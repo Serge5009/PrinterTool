@@ -12,8 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a83b47e5dbfb54e97784797fede093, type: 3}
   m_Name: MasterCatalogDatabase
   m_EditorClassIdentifier: Assembly-CSharp::CatalogDatabaseSO
-  allBrands: []
-  allMaterialFamilies: []
-  allFilamentStyles: []
-  allPrinters: []
-  allFilaments: []
+  allBrands:
+  - {fileID: 11400000, guid: 80d2e8a2ca512684cae4900c2da770cc, type: 2}
+  - {fileID: 11400000, guid: a89e39dfbab81444caed78f49928ddfa, type: 2}
+  - {fileID: 11400000, guid: f2cecfc7699d32840b33d210039428b2, type: 2}
+  - {fileID: 11400000, guid: 5ddf406990f9b504dad3afa1689bf588, type: 2}
+  - {fileID: 11400000, guid: fb1a336cccbef3f47a15dcb03869c763, type: 2}
+  allMaterialFamilies:
+  - {fileID: 11400000, guid: fbbe2369a79b5914eb5b1d02ed3bf4d2, type: 2}
+  - {fileID: 11400000, guid: 194a38e36d2a83746afdcebfb685ac70, type: 2}
+  - {fileID: 11400000, guid: 84e08aa5b948f334e80f3a99576f6223, type: 2}
+  allFilamentStyles:
+  - {fileID: 11400000, guid: 218e5b040b61fe141ac818e5e0148b4d, type: 2}
+  - {fileID: 11400000, guid: bac00e6d13fce5341b64c65a3040dc21, type: 2}
+  allPrinters:
+  - {fileID: 11400000, guid: c541c2ba1006fad4a867cd4a0e96bd24, type: 2}
+  - {fileID: 11400000, guid: a276e63e7b07c624fb7370217f749236, type: 2}
+  - {fileID: 11400000, guid: 25e18a40250947146a9e7da97b3a52df, type: 2}
+  allFilaments:
+  - {fileID: 11400000, guid: f058eda6545f7e64b97a4675a4ca92e8, type: 2}

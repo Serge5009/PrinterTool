@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14eb214c52c488489dd84259a67cbff, type: 3}
   m_Name: BL_A1L
   m_EditorClassIdentifier: Assembly-CSharp::PrinterProfileSO
-  uniqueId: BL_A1
+  uniqueId: BL_A1L
   brand: {fileID: 11400000, guid: a89e39dfbab81444caed78f49928ddfa, type: 2}
-  itemName: A1
+  itemName: A1L
   icon: {fileID: 0}
   description: 
-  buildVolume: {x: 256, y: 256, z: 256}
+  buildVolume: {x: 330, y: 325, z: 320}
   isEnclosed: 0
   maxNozzleTemperature: 300
   maxBedTemperature: 100
