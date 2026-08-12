@@ -3,7 +3,7 @@ using UnityEngine;
 using TMPro;
 
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
-using SFB; // StandaloneFileBrowser namespace
+using SFB;
 #endif
 
 public class FileImportManager : MonoBehaviour
@@ -32,11 +32,13 @@ public class FileImportManager : MonoBehaviour
 
 #elif UNITY_ANDROID
 
+        // Define the filters for Android using NativeFilePicker's conversion
         string[] fileTypes = new string[] { 
             NativeFilePicker.ConvertExtensionToFileType("stl"), 
             NativeFilePicker.ConvertExtensionToFileType("3mf") 
         };
 
+        // Open native Android file picker
         NativeFilePicker.PickFile((path) =>
         {
             if (path == null)
@@ -69,7 +71,8 @@ public class FileImportManager : MonoBehaviour
             try
             {
                 Mesh generatedMesh = STLParser.LoadBinarySTL(filePath);
-                DisplayMesh(generatedMesh, fileName);
+
+                DisplayModel(new Mesh[] { generatedMesh }, fileName);
             }
             catch (System.Exception e)
             {
@@ -78,11 +81,19 @@ public class FileImportManager : MonoBehaviour
         }
         else if (extension == ".3mf")
         {
-            Debug.LogWarning("3MF parsing is not yet implemented!");
+            try
+            {
+                Mesh[] generatedMeshes = ThreeMFParser.Load3MF(filePath);
+                DisplayModel(generatedMeshes, fileName);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError("Failed to parse 3MF: " + e.Message);
+            }
         }
     }
 
-    private void DisplayMesh(Mesh mesh, string modelName)
+    private void DisplayModel(Mesh[] meshes, string modelName)
     {
         if (currentModel != null)
         {
@@ -91,20 +102,39 @@ public class FileImportManager : MonoBehaviour
 
         currentModel = new GameObject(modelName);
 
-        MeshFilter meshFilter = currentModel.AddComponent<MeshFilter>();
-        MeshRenderer meshRenderer = currentModel.AddComponent<MeshRenderer>();
+        Bounds combinedBounds = new Bounds(Vector3.zero, Vector3.zero);
+        bool boundsInitialized = false;
 
-        meshFilter.mesh = mesh;
-
-        if (defaultMaterial != null)
+        for (int i = 0; i < meshes.Length; i++)
         {
-            meshRenderer.material = defaultMaterial;
-        }
-        else
-        {
-            meshRenderer.material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+            GameObject partObj = new GameObject($"Part_{i}");
+            partObj.transform.SetParent(currentModel.transform, false);
+
+            MeshFilter meshFilter = partObj.AddComponent<MeshFilter>();
+            MeshRenderer meshRenderer = partObj.AddComponent<MeshRenderer>();
+
+            meshFilter.mesh = meshes[i];
+
+            if (defaultMaterial != null)
+            {
+                meshRenderer.material = defaultMaterial;
+            }
+            else
+            {
+                meshRenderer.material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+            }
+
+            if (!boundsInitialized)
+            {
+                combinedBounds = meshes[i].bounds;
+                boundsInitialized = true;
+            }
+            else
+            {
+                combinedBounds.Encapsulate(meshes[i].bounds);
+            }
         }
 
-        currentModel.transform.position = -mesh.bounds.center;
+        currentModel.transform.position = -combinedBounds.center;
     }
 }
