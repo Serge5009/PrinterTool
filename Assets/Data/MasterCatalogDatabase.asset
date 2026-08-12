@@ -32,6 +32,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 84e08aa5b948f334e80f3a99576f6223, type: 2}
   allFilamentStyles:
   - {fileID: 11400000, guid: 218e5b040b61fe141ac818e5e0148b4d, type: 2}
+  - {fileID: 11400000, guid: b5f46503a565aa44d8c7cbac261e4dcc, type: 2}
+  - {fileID: 11400000, guid: 4d1c573c12d9df140aca3474c0adafb1, type: 2}
   - {fileID: 11400000, guid: bac00e6d13fce5341b64c65a3040dc21, type: 2}
   allColorPresets:
   - {fileID: 11400000, guid: 420c899c308c9ab468bc5f2c4402198b, type: 2}
@@ -48,6 +50,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 25e18a40250947146a9e7da97b3a52df, type: 2}
   - {fileID: 11400000, guid: fc65135004b3bbe4ca269f9ad90e6b79, type: 2}
   allFilaments:
-  - {fileID: 11400000, guid: f058eda6545f7e64b97a4675a4ca92e8, type: 2}
   - {fileID: 11400000, guid: a9a6eb39ce7cc0c41aa0b3be2cfab6e5, type: 2}
   - {fileID: 11400000, guid: 0dae99deea356c049a1b0b87a15aaef8, type: 2}
+  - {fileID: 11400000, guid: f058eda6545f7e64b97a4675a4ca92e8, type: 2}
