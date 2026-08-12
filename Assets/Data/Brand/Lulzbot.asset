@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Lulzbot
   m_EditorClassIdentifier: Assembly-CSharp::BrandSO
   brandName: Lulzbot
+  brandAbbreviation: LB
   brandLogo: {fileID: 21300000, guid: a936c9ac2e39c9949865610ff4579617, type: 3}
   websiteURL: 

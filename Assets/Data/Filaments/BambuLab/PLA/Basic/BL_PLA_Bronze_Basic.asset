@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 033d1da020e376145bd21e6906e7ad7c, type: 3}
+  m_Name: BL_PLA_Bronze_Basic
+  m_EditorClassIdentifier: Assembly-CSharp::FilamentProfileSO
+  uniqueId: BL_PLA_Bronze_Basic
+  brand: {fileID: 11400000, guid: a89e39dfbab81444caed78f49928ddfa, type: 2}
+  itemName: Bronze
+  nickname: 
+  icon: {fileID: 0}
+  description: 
+  materialFamily: {fileID: 11400000, guid: 84e08aa5b948f334e80f3a99576f6223, type: 2}
+  displayColor: {r: 0.5176471, g: 0.49019608, b: 0.28235295, a: 1}
+  visualStyle: {fileID: 11400000, guid: 9b88072fbe9a0f04c9382b08e983e328, type: 2}
+  customNozzleTemp: 0
+  customBedTemp: 0
+  customDensity: 0

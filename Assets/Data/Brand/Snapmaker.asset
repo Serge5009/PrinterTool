@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Snapmaker
   m_EditorClassIdentifier: Assembly-CSharp::BrandSO
   brandName: Snapmaker
+  brandAbbreviation: SM
   brandLogo: {fileID: 21300000, guid: 70623b10c91597b40a8f931d1f38cc73, type: 3}
   websiteURL: 

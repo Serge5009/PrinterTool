@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Pursa
   m_EditorClassIdentifier: Assembly-CSharp::BrandSO
   brandName: Pursa Research
+  brandAbbreviation: PU
   brandLogo: {fileID: 21300000, guid: 2006374c592e260429d56aae33914055, type: 3}
   websiteURL: 

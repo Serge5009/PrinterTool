@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: BambuLab
   m_EditorClassIdentifier: Assembly-CSharp::BrandSO
   brandName: Bambu Lab
+  brandAbbreviation: BL
   brandLogo: {fileID: 21300000, guid: ca7351cf4eaec6445a29fe79ecdc684c, type: 3}
   websiteURL: 

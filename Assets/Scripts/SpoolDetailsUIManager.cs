@@ -20,7 +20,7 @@ public class SpoolDetailsUIManager : MonoBehaviour
 
     [Header("All Stats & Overrides")]
     public TMP_InputField nicknameInput;
-    public TMP_InputField colorNameInput; // Formerly customNameInput
+    public TMP_InputField colorNameInput;
     public TMP_Dropdown materialFamilyDropdown;
     public TMP_Dropdown styleDropdown;
     public TMP_InputField customNozzleInput;
@@ -35,7 +35,7 @@ public class SpoolDetailsUIManager : MonoBehaviour
     private string activeCustomHex = "#FFFFFF";
 
     [Header("Custom Brand Controls")]
-    public CatalogUIManager catalogManager; // Needed to open the brand selector
+    public CatalogUIManager catalogManager;
     public Button customBrandButton;
     public Image customBrandIcon;
     public TextMeshProUGUI customBrandText;
@@ -68,6 +68,20 @@ public class SpoolDetailsUIManager : MonoBehaviour
         if (customColorButton != null) customColorButton.onClick.AddListener(OnCustomColorButtonClicked);
 
         if (colorNameInput != null) colorNameInput.onValueChanged.AddListener(OnColorNameManuallyChanged);
+        if (materialFamilyDropdown != null) materialFamilyDropdown.onValueChanged.AddListener(OnFamilyDropdownChanged);
+    }
+
+    private void OnFamilyDropdownChanged(int index)
+    {
+        if (isUpdatingUI || availableFamilies == null || availableFamilies.Count <= index) return;
+
+        if (currentMode == 2)
+        {
+            var fam = availableFamilies[index];
+            if (customNozzleInput != null) customNozzleInput.text = fam.defaultNozzleTemperature.ToString();
+            if (customBedInput != null) customBedInput.text = fam.defaultBedTemperature.ToString();
+            if (densityInput != null) densityInput.text = fam.baseDensity.ToString();
+        }
     }
 
     private void OnColorNameManuallyChanged(string val)
@@ -112,9 +126,21 @@ public class SpoolDetailsUIManager : MonoBehaviour
         isUpdatingUI = true;
         if (nicknameInput != null) nicknameInput.text = "";
         if (colorNameInput != null) colorNameInput.text = "";
-        if (customNozzleInput != null) customNozzleInput.text = "200";
-        if (customBedInput != null) customBedInput.text = "60";
-        if (densityInput != null) densityInput.text = "1.24";
+
+        if (availableFamilies != null && availableFamilies.Count > 0)
+        {
+            var fam = availableFamilies[0];
+            if (customNozzleInput != null) customNozzleInput.text = fam.defaultNozzleTemperature.ToString();
+            if (customBedInput != null) customBedInput.text = fam.defaultBedTemperature.ToString();
+            if (densityInput != null) densityInput.text = fam.baseDensity.ToString();
+        }
+        else
+        {
+            if (customNozzleInput != null) customNozzleInput.text = "200";
+            if (customBedInput != null) customBedInput.text = "60";
+            if (densityInput != null) densityInput.text = "1.24";
+        }
+
         if (remainingWeightInput != null) remainingWeightInput.text = "1000";
         if (originalWeightInput != null) originalWeightInput.text = "1000";
         if (notesInput != null) notesInput.text = "";
@@ -127,6 +153,24 @@ public class SpoolDetailsUIManager : MonoBehaviour
         if (deleteButton != null) deleteButton.gameObject.SetActive(false);
 
         UpdateCustomBrandUI();
+
+        detailsPanel.SetActive(true);
+        detailsPanel.transform.SetAsLastSibling();
+    }
+
+    public void OpenForEdit(SpoolInstance spool)
+    {
+        currentMode = 0;
+        activeSpool = spool;
+        activeProfile = InventoryManager.Instance.GetProfileForSpool(spool);
+
+        PopulateFamilyDropdown();
+        PopulateStyleDropdown();
+        PopulateHeader(activeProfile);
+        PopulateFieldsFromSpool();
+
+        if (saveButtonText != null) saveButtonText.text = "Save Changes";
+        if (deleteButton != null) deleteButton.gameObject.SetActive(true);
 
         detailsPanel.SetActive(true);
         detailsPanel.transform.SetAsLastSibling();
@@ -167,41 +211,28 @@ public class SpoolDetailsUIManager : MonoBehaviour
     private void PopulateFamilyDropdown()
     {
         if (materialFamilyDropdown == null) return;
-
         materialFamilyDropdown.ClearOptions();
         availableFamilies = AppManager.Instance.masterDatabase.allMaterialFamilies;
 
         System.Collections.Generic.List<string> options = new System.Collections.Generic.List<string>();
-        foreach (var family in availableFamilies)
-        {
-            options.Add(family.familyAbbreviation);
-        }
-
+        foreach (var family in availableFamilies) options.Add(family.familyAbbreviation);
         materialFamilyDropdown.AddOptions(options);
     }
 
     private void PopulateStyleDropdown()
     {
         if (styleDropdown == null) return;
-
         styleDropdown.ClearOptions();
         availableStyles = AppManager.Instance.masterDatabase.allFilamentStyles;
 
         System.Collections.Generic.List<string> options = new System.Collections.Generic.List<string>();
-        foreach (var style in availableStyles)
-        {
-            options.Add(style.styleName);
-        }
-
+        foreach (var style in availableStyles) options.Add(style.styleName);
         styleDropdown.AddOptions(options);
     }
 
     private void OnCustomColorButtonClicked()
     {
-        if (colorPicker != null)
-        {
-            colorPicker.Open(activeCustomColor, SetCustomColor);
-        }
+        if (colorPicker != null) colorPicker.Open(activeCustomColor, SetCustomColor);
     }
 
     private void SetCustomColor(Color newColor, string hexCode, string presetName)
@@ -220,39 +251,13 @@ public class SpoolDetailsUIManager : MonoBehaviour
         }
     }
 
-    public void OpenForEdit(SpoolInstance spool)
-    {
-        currentMode = 0;
-        activeSpool = spool;
-        activeProfile = InventoryManager.Instance.GetProfileForSpool(spool);
-
-        PopulateFamilyDropdown();
-        PopulateStyleDropdown();
-        PopulateHeader(activeProfile);
-        PopulateFieldsFromSpool();
-
-        if (saveButtonText != null) saveButtonText.text = "Save Changes";
-        if (deleteButton != null) deleteButton.gameObject.SetActive(true);
-
-        detailsPanel.SetActive(true);
-        detailsPanel.transform.SetAsLastSibling();
-    }
-
     private void PopulateHeader(FilamentProfileSO profile)
     {
         if (profile == null) return;
 
-        if (brandIcon != null && profile.brand != null)
-            brandIcon.sprite = profile.brand.brandLogo;
-
-        if (colorSquare != null)
-            colorSquare.color = profile.displayColor;
-
-        string family = profile.materialFamily != null ? profile.materialFamily.familyAbbreviation : "";
-        string style = profile.visualStyle != null ? profile.visualStyle.styleName : "";
-
-        if (itemNameText != null)
-            itemNameText.text = profile.GetDisplayName();
+        if (brandIcon != null && profile.brand != null) brandIcon.sprite = profile.brand.brandLogo;
+        if (colorSquare != null) colorSquare.color = profile.displayColor;
+        if (itemNameText != null) itemNameText.text = profile.GetDisplayName();
     }
 
     private void PopulateFieldsFromProfile()
@@ -262,7 +267,7 @@ public class SpoolDetailsUIManager : MonoBehaviour
         activeCustomBrand = activeProfile.brand;
         UpdateCustomBrandUI();
 
-        if (nicknameInput != null) nicknameInput.text = activeProfile.nickname;
+        if (nicknameInput != null) nicknameInput.text = activeProfile.GetDisplayName();
         if (colorNameInput != null) colorNameInput.text = activeProfile.itemName;
         if (customNozzleInput != null) customNozzleInput.text = activeProfile.GetActiveNozzleTemp().ToString();
         if (customBedInput != null) customBedInput.text = activeProfile.GetActiveBedTemp().ToString();
@@ -288,7 +293,7 @@ public class SpoolDetailsUIManager : MonoBehaviour
         activeCustomBrand = AppManager.Instance.masterDatabase.allBrands.Find(b => b.brandName == bId);
         UpdateCustomBrandUI();
 
-        if (nicknameInput != null) nicknameInput.text = !string.IsNullOrEmpty(activeSpool.spoolNameOverride) ? activeSpool.spoolNameOverride : activeProfile.nickname;
+        if (nicknameInput != null) nicknameInput.text = InventoryManager.Instance.GetSpoolDisplayName(activeSpool);
         if (colorNameInput != null) colorNameInput.text = !string.IsNullOrEmpty(activeSpool.colorNameOverride) ? activeSpool.colorNameOverride : activeProfile.itemName;
 
         if (customNozzleInput != null) customNozzleInput.text = activeSpool.nozzleTempOverride > 0 ? activeSpool.nozzleTempOverride.ToString() : activeProfile.GetActiveNozzleTemp().ToString();
@@ -314,11 +319,8 @@ public class SpoolDetailsUIManager : MonoBehaviour
 
     private void OnSaveClicked()
     {
-        float remaining = 1000f;
-        float original = 1000f;
-
-        if (remainingWeightInput != null) float.TryParse(remainingWeightInput.text, out remaining);
-        if (originalWeightInput != null) float.TryParse(originalWeightInput.text, out original);
+        float remaining = ParseFloat(remainingWeightInput != null ? remainingWeightInput.text : "1000", 1000f);
+        float original = ParseFloat(originalWeightInput != null ? originalWeightInput.text : "1000", 1000f);
 
         if (currentMode == 0 && activeSpool != null)
         {
@@ -335,21 +337,22 @@ public class SpoolDetailsUIManager : MonoBehaviour
         {
             string nick = nicknameInput != null ? nicknameInput.text : "";
             string color = colorNameInput != null ? colorNameInput.text : "Custom";
-
-            int nozzle = 200;
-            if (customNozzleInput != null) int.TryParse(customNozzleInput.text, out nozzle);
-
-            int bed = 60;
-            if (customBedInput != null) int.TryParse(customBedInput.text, out bed);
-
-            float density = 1.24f;
-            if (densityInput != null) float.TryParse(densityInput.text, out density);
+            int nozzle = ParseInt(customNozzleInput != null ? customNozzleInput.text : "", 200);
+            int bed = ParseInt(customBedInput != null ? customBedInput.text : "", 60);
+            float density = ParseFloat(densityInput != null ? densityInput.text : "", 1.24f);
 
             string brandId = activeCustomBrand != null ? activeCustomBrand.brandName : "";
-
             string familyId = "";
+
             if (materialFamilyDropdown != null && availableFamilies != null && availableFamilies.Count > 0)
-                familyId = availableFamilies[materialFamilyDropdown.value].familyAbbreviation;
+            {
+                var fam = availableFamilies[materialFamilyDropdown.value];
+                familyId = fam.familyAbbreviation;
+
+                if (nozzle == fam.defaultNozzleTemperature) nozzle = 0;
+                if (bed == fam.defaultBedTemperature) bed = 0;
+                if (Mathf.Approximately(density, fam.baseDensity)) density = 0f;
+            }
 
             string styleId = "";
             if (styleDropdown != null && availableStyles != null && availableStyles.Count > 0)
@@ -361,6 +364,7 @@ public class SpoolDetailsUIManager : MonoBehaviour
             newSpool.remainingWeightGrams = remaining;
             newSpool.originalWeightGrams = original;
             if (notesInput != null) newSpool.customNotes = notesInput.text;
+
             InventoryManager.Instance.SaveData();
         }
 
@@ -373,7 +377,9 @@ public class SpoolDetailsUIManager : MonoBehaviour
         spool.originalWeightGrams = originalWeightInput != null ? ParseFloat(originalWeightInput.text, 1000f) : 1000f;
         if (notesInput != null) spool.customNotes = notesInput.text;
 
-        spool.spoolNameOverride = nicknameInput != null ? nicknameInput.text : "";
+        string enteredNickname = nicknameInput != null ? nicknameInput.text : "";
+        string generatedName = activeProfile != null ? activeProfile.GetDisplayName() : "";
+        spool.spoolNameOverride = (enteredNickname != generatedName) ? enteredNickname : "";
 
         if (activeProfile != null)
         {
@@ -432,10 +438,8 @@ public class SpoolDetailsUIManager : MonoBehaviour
                     break;
                 }
             }
-
             InventoryManager.Instance.SaveData();
         }
-
         ClosePanel();
     }
 

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Phrozen
   m_EditorClassIdentifier: Assembly-CSharp::BrandSO
   brandName: Phrozen
+  brandAbbreviation: PZ
   brandLogo: {fileID: 21300000, guid: f0a8bc2db7f0b3742a0b42e39c05d6a1, type: 3}
   websiteURL: 

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Ultimaker
   m_EditorClassIdentifier: Assembly-CSharp::BrandSO
   brandName: Ultimaker
+  brandAbbreviation: UM
   brandLogo: {fileID: 21300000, guid: 38dec23d93f6a9a4ca0734d876d9cb54, type: 3}
   websiteURL: 

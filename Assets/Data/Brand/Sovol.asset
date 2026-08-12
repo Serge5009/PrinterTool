@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Sovol
   m_EditorClassIdentifier: Assembly-CSharp::BrandSO
   brandName: Sovol
+  brandAbbreviation: SV
   brandLogo: {fileID: 21300000, guid: ee650a8566b9048468e1e1dc88a3fc89, type: 3}
   websiteURL: 
