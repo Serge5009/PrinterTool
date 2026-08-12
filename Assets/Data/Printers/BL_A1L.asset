@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14eb214c52c488489dd84259a67cbff, type: 3}
+  m_Name: BL_A1L
+  m_EditorClassIdentifier: Assembly-CSharp::PrinterProfileSO
+  uniqueId: BL_A1
+  brand: {fileID: 11400000, guid: a89e39dfbab81444caed78f49928ddfa, type: 2}
+  itemName: A1
+  icon: {fileID: 0}
+  description: 
+  buildVolume: {x: 256, y: 256, z: 256}
+  isEnclosed: 0
+  maxNozzleTemperature: 300
+  maxBedTemperature: 100
+  supportedMaterials:
+  - {fileID: 11400000, guid: 84e08aa5b948f334e80f3a99576f6223, type: 2}
+  - {fileID: 11400000, guid: 194a38e36d2a83746afdcebfb685ac70, type: 2}
