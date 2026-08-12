@@ -25,13 +25,10 @@ public class InventoryItemUI : MonoBehaviour
         if (profile != null)
         {
             if (itemIcon != null) itemIcon.sprite = profile.icon;
-            if (colorSquare != null) colorSquare.color = profile.displayColor;
-
-            string family = profile.materialFamily != null ? profile.materialFamily.familyAbbreviation : "";
-            string style = profile.visualStyle != null ? profile.visualStyle.styleName : "";
+            if (colorSquare != null) colorSquare.color = InventoryManager.Instance.GetSpoolColor(spool);
 
             if (itemNameText != null)
-                itemNameText.text = $"{profile.itemName} {family} ({style})";
+                itemNameText.text = InventoryManager.Instance.GetSpoolDisplayName(spool);
 
             if (profile.brand != null && brandIcon != null)
                 brandIcon.sprite = profile.brand.brandLogo;

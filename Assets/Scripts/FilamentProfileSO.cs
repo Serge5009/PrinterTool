@@ -43,4 +43,17 @@ public class FilamentProfileSO : CatalogItemSO
         if (materialFamily != null) return materialFamily.baseDensity;
         return 1.24f;
     }
+
+    public string GetDisplayName()
+    {
+        if (!string.IsNullOrEmpty(nickname)) return nickname;
+
+        string b = brand != null ? brand.brandName : "";
+        string f = materialFamily != null ? materialFamily.familyAbbreviation : "";
+        string c = itemName;
+        string s = visualStyle != null ? visualStyle.styleName : "";
+
+        string rawName = $"{b} {f} {c} {s}";
+        return System.Text.RegularExpressions.Regex.Replace(rawName, @"\s+", " ").Trim();
+    }
 }

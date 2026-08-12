@@ -17,7 +17,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a89e39dfbab81444caed78f49928ddfa, type: 2}
   - {fileID: 11400000, guid: f2cecfc7699d32840b33d210039428b2, type: 2}
   - {fileID: 11400000, guid: 5ddf406990f9b504dad3afa1689bf588, type: 2}
+  - {fileID: 11400000, guid: 7c7ca8df8b47a7547ae413ea8596702f, type: 2}
+  - {fileID: 11400000, guid: 3ba8246b2b39afe4bad6b0dbb7d644e3, type: 2}
+  - {fileID: 11400000, guid: 09d8f3d57c3308b44805c3065bfe412e, type: 2}
+  - {fileID: 11400000, guid: 95900a8902cd80444ae6a43eb9bc22de, type: 2}
   - {fileID: 11400000, guid: fb1a336cccbef3f47a15dcb03869c763, type: 2}
+  - {fileID: 11400000, guid: 1c31370e43e02c84a8022f0f24e88164, type: 2}
+  - {fileID: 11400000, guid: 62a6fa130938bc642a5aa12053dac5c7, type: 2}
+  - {fileID: 11400000, guid: 4ec5d815ae6f2b64a88946cdf701b0f3, type: 2}
+  - {fileID: 11400000, guid: a9a642a51f0b00147abf70c84a0faefc, type: 2}
   allMaterialFamilies:
   - {fileID: 11400000, guid: fbbe2369a79b5914eb5b1d02ed3bf4d2, type: 2}
   - {fileID: 11400000, guid: 194a38e36d2a83746afdcebfb685ac70, type: 2}
@@ -25,6 +33,15 @@ MonoBehaviour:
   allFilamentStyles:
   - {fileID: 11400000, guid: 218e5b040b61fe141ac818e5e0148b4d, type: 2}
   - {fileID: 11400000, guid: bac00e6d13fce5341b64c65a3040dc21, type: 2}
+  allColorPresets:
+  - {fileID: 11400000, guid: 420c899c308c9ab468bc5f2c4402198b, type: 2}
+  - {fileID: 11400000, guid: e7ce8d5de3b187945833a133ab9f0b69, type: 2}
+  - {fileID: 11400000, guid: 2fff9dc6d29c73f48bf28e815f7b5060, type: 2}
+  - {fileID: 11400000, guid: 01a1e1eddcae10d4badede0ba116b9cf, type: 2}
+  - {fileID: 11400000, guid: 25cf731d72822ae45900f66b1d9b1d71, type: 2}
+  - {fileID: 11400000, guid: 071abde91f9e2cf4dae3c1ae46426b7a, type: 2}
+  - {fileID: 11400000, guid: edd74cf2799fab94cb4eb718104deab3, type: 2}
+  - {fileID: 11400000, guid: 7ccb8ba1ee10ec24c9f870b3d6ccda4a, type: 2}
   allPrinters:
   - {fileID: 11400000, guid: c541c2ba1006fad4a867cd4a0e96bd24, type: 2}
   - {fileID: 11400000, guid: a276e63e7b07c624fb7370217f749236, type: 2}

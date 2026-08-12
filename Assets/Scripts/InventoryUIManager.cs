@@ -77,7 +77,17 @@ public class InventoryUIManager : MonoBehaviour
 
         if (catalogManager != null)
         {
-            catalogManager.OpenFilamentCatalog(OnCatalogItemSelected);
+            catalogManager.OpenFilamentCatalog(OnCatalogItemSelected, OnCustomFilamentRequested);
+        }
+    }
+
+    private void OnCustomFilamentRequested(BrandSO preselectedBrand)
+    {
+        catalogManager.CloseCatalog();
+
+        if (detailsManager != null)
+        {
+            detailsManager.OpenForCustomAdd(activeListName, preselectedBrand);
         }
     }
 

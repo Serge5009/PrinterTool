@@ -10,6 +10,9 @@ public abstract class CatalogItemSO : ScriptableObject
     public BrandSO brand;
     public string itemName;
 
+    [Tooltip("An optional nickname override for this profile.")]
+    public string nickname;
+
     [Header("UI Representation")]
     public Sprite icon;
 

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Anycubic
   m_EditorClassIdentifier: Assembly-CSharp::BrandSO
   brandName: Anycubic
-  brandLogo: {fileID: 0}
+  brandLogo: {fileID: 21300000, guid: a83ed951607386042887b822f0f7397f, type: 3}
   websiteURL: 

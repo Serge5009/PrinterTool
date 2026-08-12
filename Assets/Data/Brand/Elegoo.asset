@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Elegoo
   m_EditorClassIdentifier: Assembly-CSharp::BrandSO
   brandName: Elegoo
-  brandLogo: {fileID: 0}
+  brandLogo: {fileID: 21300000, guid: f748eb2a95146b0459bd82931e2b77d0, type: 3}
   websiteURL: 

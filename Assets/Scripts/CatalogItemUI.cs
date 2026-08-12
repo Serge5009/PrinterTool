@@ -51,12 +51,9 @@ public class CatalogItemUI : MonoBehaviour
 
     private void SetupFilamentUI(FilamentProfileSO filament)
     {
-        string family = filament.materialFamily != null ? filament.materialFamily.familyAbbreviation : "Unknown";
-        string style = filament.visualStyle != null ? filament.visualStyle.styleName : "Standard";
-
         if (itemNameText != null)
         {
-            itemNameText.text = $"{filament.itemName} {family} ({style})";
+            itemNameText.text = filament.GetDisplayName();
         }
 
         if (colorSquareContainer != null) colorSquareContainer.SetActive(true);

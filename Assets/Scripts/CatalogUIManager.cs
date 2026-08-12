@@ -31,8 +31,15 @@ public class CatalogUIManager : MonoBehaviour
     [Tooltip("Text to display 'Select Brand' or 'Catalog'.")]
     public TextMeshProUGUI catalogTitleText;
 
+    [Header("Custom Filament Controls")]
+    public Button addCustomButton;
+
     private Action<CatalogItemSO> currentCallback;
+    private Action<BrandSO> customAddCallback;
+    private Action<BrandSO> standaloneBrandCallback;
+
     private bool isSelectingFilament;
+    private BrandSO currentlySelectedBrand;
 
     private void Start()
     {
@@ -42,12 +49,18 @@ public class CatalogUIManager : MonoBehaviour
         }
     }
 
-    public void OpenFilamentCatalog(Action<CatalogItemSO> onItemSelected = null)
+    public void OpenFilamentCatalog(Action<CatalogItemSO> onItemSelected = null, Action<BrandSO> onCustomSelected = null)
     {
         currentCallback = onItemSelected;
+        customAddCallback = onCustomSelected;
+        standaloneBrandCallback = null;
         isSelectingFilament = true;
 
-        if (catalogPanel != null) catalogPanel.SetActive(true);
+        if (catalogPanel != null)
+        {
+            catalogPanel.SetActive(true);
+            catalogPanel.transform.SetAsLastSibling();
+        }
 
         ShowBrandSelection();
     }
@@ -57,7 +70,11 @@ public class CatalogUIManager : MonoBehaviour
         currentCallback = onItemSelected;
         isSelectingFilament = false;
 
-        if (catalogPanel != null) catalogPanel.SetActive(true);
+        if (catalogPanel != null)
+        {
+            catalogPanel.SetActive(true);
+            catalogPanel.transform.SetAsLastSibling();
+        }
 
         ShowBrandSelection();
     }
@@ -68,6 +85,7 @@ public class CatalogUIManager : MonoBehaviour
 
         if (catalogTitleText != null) catalogTitleText.text = "Select a Brand";
         if (skipBrandButton != null) skipBrandButton.gameObject.SetActive(true);
+        if (addCustomButton != null) addCustomButton.gameObject.SetActive(false);
 
         if (database == null || database.allBrands == null) return;
 
@@ -88,7 +106,16 @@ public class CatalogUIManager : MonoBehaviour
     {
         ClearContainer();
 
+        currentlySelectedBrand = selectedBrand;
+
         if (skipBrandButton != null) skipBrandButton.gameObject.SetActive(false);
+
+        if (addCustomButton != null)
+        {
+            addCustomButton.gameObject.SetActive(isSelectingFilament);
+            addCustomButton.onClick.RemoveAllListeners();
+            addCustomButton.onClick.AddListener(OnAddCustomClicked);
+        }
 
         if (catalogTitleText != null)
         {
@@ -124,10 +151,44 @@ public class CatalogUIManager : MonoBehaviour
         if (catalogPanel != null) catalogPanel.SetActive(false);
     }
 
+    private void OnAddCustomClicked()
+    {
+        customAddCallback?.Invoke(currentlySelectedBrand);
+    }
+
+    public void OpenBrandSelector(Action<BrandSO> onBrandSelected)
+    {
+        standaloneBrandCallback = onBrandSelected;
+
+        ClearContainer();
+        if (catalogPanel != null)
+        {
+            catalogPanel.SetActive(true);
+            catalogPanel.transform.SetAsLastSibling();
+        }
+
+        if (catalogTitleText != null) catalogTitleText.text = "Select Brand";
+        if (skipBrandButton != null) skipBrandButton.gameObject.SetActive(false);
+        if (addCustomButton != null) addCustomButton.gameObject.SetActive(false);
+
+        if (database == null || database.allBrands == null) return;
+
+        foreach (BrandSO brand in database.allBrands)
+        {
+            BrandItemUI newBrandUI = Instantiate(brandPrefab, contentPanel);
+            newBrandUI.Setup(brand, OnStandaloneBrandClicked);
+        }
+    }
+
+    private void OnStandaloneBrandClicked(BrandSO brand)
+    {
+        standaloneBrandCallback?.Invoke(brand);
+        CloseCatalog();
+    }
+
     private void SpawnItem(CatalogItemSO item, Action<CatalogItemSO> onItemSelected)
     {
         CatalogItemUI newItemUI = Instantiate(itemPrefab, contentPanel);
-
         newItemUI.Setup(item, onItemSelected);
     }
 

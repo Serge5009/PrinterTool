@@ -15,7 +15,8 @@ MonoBehaviour:
   uniqueId: BL_A1
   brand: {fileID: 11400000, guid: a89e39dfbab81444caed78f49928ddfa, type: 2}
   itemName: A1
-  icon: {fileID: 0}
+  nickname: 
+  icon: {fileID: 21300000, guid: 9cc14cf6ba1da6146bc1124dc70976d2, type: 3}
   description: 
   buildVolume: {x: 256, y: 256, z: 256}
   isEnclosed: 0

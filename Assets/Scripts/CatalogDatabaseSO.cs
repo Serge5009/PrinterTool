@@ -13,6 +13,7 @@ public class CatalogDatabaseSO : ScriptableObject
     public List<BrandSO> allBrands = new List<BrandSO>();
     public List<MaterialFamilySO> allMaterialFamilies = new List<MaterialFamilySO>();
     public List<FilamentStyleSO> allFilamentStyles = new List<FilamentStyleSO>();
+    public List<ColorPresetSO> allColorPresets = new List<ColorPresetSO>();
 
     [Space(10)]
     public List<PrinterProfileSO> allPrinters = new List<PrinterProfileSO>();
@@ -35,6 +36,7 @@ public class CatalogDatabaseSO : ScriptableObject
         allBrands = FindAssetsByType<BrandSO>();
         allMaterialFamilies = FindAssetsByType<MaterialFamilySO>();
         allFilamentStyles = FindAssetsByType<FilamentStyleSO>();
+        allColorPresets = FindAssetsByType<ColorPresetSO>();
         allPrinters = FindAssetsByType<PrinterProfileSO>();
         allFilaments = FindAssetsByType<FilamentProfileSO>();
 

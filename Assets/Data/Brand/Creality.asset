@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Creality
   m_EditorClassIdentifier: Assembly-CSharp::BrandSO
   brandName: Creality
-  brandLogo: {fileID: 0}
+  brandLogo: {fileID: 21300000, guid: 1b7ef7626b368ee499df7405d1a968f5, type: 3}
   websiteURL: 

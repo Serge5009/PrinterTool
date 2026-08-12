@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8127f78d1e0a65d44bf93720e75e2760, type: 3}
   m_Name: Ultimaker
   m_EditorClassIdentifier: Assembly-CSharp::BrandSO
-  brandName: Sovol
-  brandLogo: {fileID: 0}
+  brandName: Ultimaker
+  brandLogo: {fileID: 21300000, guid: 38dec23d93f6a9a4ca0734d876d9cb54, type: 3}
   websiteURL: 
