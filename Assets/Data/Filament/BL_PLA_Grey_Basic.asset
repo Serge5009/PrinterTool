@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 033d1da020e376145bd21e6906e7ad7c, type: 3}
   m_Name: BL_PLA_Grey_Basic
   m_EditorClassIdentifier: Assembly-CSharp::FilamentProfileSO
-  uniqueId: BL_PLA_White_Basic
+  uniqueId: BL_PLA_Grey_Basic
   brand: {fileID: 11400000, guid: a89e39dfbab81444caed78f49928ddfa, type: 2}
-  itemName: White
+  itemName: Grey
   icon: {fileID: 0}
   description: 
   materialFamily: {fileID: 11400000, guid: 84e08aa5b948f334e80f3a99576f6223, type: 2}
-  displayColor: {r: 1, g: 1, b: 1, a: 1}
+  displayColor: {r: 0.6226415, g: 0.6226415, b: 0.6226415, a: 1}
   visualStyle: {fileID: 11400000, guid: bac00e6d13fce5341b64c65a3040dc21, type: 2}
   customNozzleTemp: 0
   customBedTemp: 0
