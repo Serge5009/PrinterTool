@@ -882,6 +882,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FileImportManager
   fileNameText: {fileID: 679846990}
+  defaultMaterial: {fileID: 2100000, guid: dd2e0ad20ac1a8044aa8c8aacd4db1aa, type: 2}
 --- !u!4 &1598536382
 Transform:
   m_ObjectHideFlags: 0

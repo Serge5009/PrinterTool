@@ -3,13 +3,17 @@ using UnityEngine;
 using TMPro;
 
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
-using SFB;
+using SFB; // StandaloneFileBrowser namespace
 #endif
 
 public class FileImportManager : MonoBehaviour
 {
     [Header("UI References")]
     public TextMeshProUGUI fileNameText;
+
+    [Header("Model Rendering")]
+    public Material defaultMaterial;
+    private GameObject currentModel;
 
     public void OpenFilePicker()
     {
@@ -51,6 +55,7 @@ public class FileImportManager : MonoBehaviour
     private void ProcessSelectedFile(string filePath)
     {
         string fileName = Path.GetFileName(filePath);
+        string extension = Path.GetExtension(filePath).ToLower();
 
         if (fileNameText != null)
         {
@@ -59,5 +64,47 @@ public class FileImportManager : MonoBehaviour
 
         Debug.Log("Successfully loaded path: " + filePath);
 
+        if (extension == ".stl")
+        {
+            try
+            {
+                Mesh generatedMesh = STLParser.LoadBinarySTL(filePath);
+                DisplayMesh(generatedMesh, fileName);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError("Failed to parse STL: " + e.Message);
+            }
+        }
+        else if (extension == ".3mf")
+        {
+            Debug.LogWarning("3MF parsing is not yet implemented!");
+        }
+    }
+
+    private void DisplayMesh(Mesh mesh, string modelName)
+    {
+        if (currentModel != null)
+        {
+            Destroy(currentModel);
+        }
+
+        currentModel = new GameObject(modelName);
+
+        MeshFilter meshFilter = currentModel.AddComponent<MeshFilter>();
+        MeshRenderer meshRenderer = currentModel.AddComponent<MeshRenderer>();
+
+        meshFilter.mesh = mesh;
+
+        if (defaultMaterial != null)
+        {
+            meshRenderer.material = defaultMaterial;
+        }
+        else
+        {
+            meshRenderer.material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+        }
+
+        currentModel.transform.position = -mesh.bounds.center;
     }
 }
