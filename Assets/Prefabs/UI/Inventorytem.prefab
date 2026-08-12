@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1185641047105232269}
   - component: {fileID: 1567496733708271208}
   - component: {fileID: 6841966185690074520}
-  - component: {fileID: 7686451346481916745}
   - component: {fileID: 2751403127721919061}
   - component: {fileID: 8701564003913154974}
   m_Layer: 5
@@ -84,24 +83,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7686451346481916745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 655245881234665270}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19dea436ef5e83649a95b42593040dae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CatalogItemUI
-  itemIcon: {fileID: 786276526500620104}
-  brandIcon: {fileID: 1480092792606007262}
-  brandNameText: {fileID: 5703202083538990900}
-  itemNameText: {fileID: 3769764593110298703}
-  colorSquareContainer: {fileID: 6719320716005011062}
-  colorSquare: {fileID: 2570054537664318949}
 --- !u!114 &2751403127721919061
 MonoBehaviour:
   m_ObjectHideFlags: 0
