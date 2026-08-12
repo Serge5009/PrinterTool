@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class CatalogItemUI : MonoBehaviour
 {
     [Header("Universal Elements")]
+    public Button itemButton;
     public Image itemIcon;
     public Image brandIcon;
     public TextMeshProUGUI brandNameText;
@@ -16,10 +18,18 @@ public class CatalogItemUI : MonoBehaviour
     public Image colorSquare;
 
     private CatalogItemSO currentItem;
+    private Action<CatalogItemSO> onClickCallback;
 
-    public void Setup(CatalogItemSO item)
+    public void Setup(CatalogItemSO item, Action<CatalogItemSO> onClick = null)
     {
         currentItem = item;
+        onClickCallback = onClick;
+
+        if (itemButton != null)
+        {
+            itemButton.onClick.RemoveAllListeners();
+            itemButton.onClick.AddListener(OnItemClicked);
+        }
 
         if (itemIcon != null) itemIcon.sprite = item.icon;
 
@@ -61,5 +71,10 @@ public class CatalogItemUI : MonoBehaviour
         }
 
         if (colorSquareContainer != null) colorSquareContainer.SetActive(false);
+    }
+
+    private void OnItemClicked()
+    {
+        onClickCallback?.Invoke(currentItem);
     }
 }

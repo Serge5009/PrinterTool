@@ -55,6 +55,11 @@ public class InventoryItemUI : MonoBehaviour
 
     private void OnItemClicked()
     {
-        Debug.Log($"[Inventory UI] Clicked on spool ID: {currentSpool.spoolId}. Remaining: {currentSpool.remainingWeightGrams}g");
+        InventoryUIManager uiManager = GetComponentInParent<InventoryUIManager>();
+
+        if (uiManager != null)
+        {
+            uiManager.OpenSpoolDetails(currentSpool);
+        }
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class CatalogUIManager : MonoBehaviour
 {
@@ -13,36 +14,46 @@ public class CatalogUIManager : MonoBehaviour
 
     [Tooltip("The Content transform inside your Scroll View.")]
     public Transform contentPanel;
-    
-    public void OpenFilamentCatalog()
+
+    [Tooltip("The parent GameObject of the Catalog UI so it can hide/show itself.")]
+    public GameObject catalogPanel;
+
+    public void OpenFilamentCatalog(Action<CatalogItemSO> onItemSelected = null)
     {
+        if (catalogPanel != null) catalogPanel.SetActive(true);
         ClearContainer();
 
         if (database == null || database.allFilaments == null) return;
 
         foreach (FilamentProfileSO filament in database.allFilaments)
         {
-            SpawnItem(filament);
+            SpawnItem(filament, onItemSelected);
         }
     }
 
-    public void OpenPrinterCatalog()
+    public void OpenPrinterCatalog(Action<CatalogItemSO> onItemSelected = null)
     {
+        if (catalogPanel != null) catalogPanel.SetActive(true);
         ClearContainer();
 
         if (database == null || database.allPrinters == null) return;
 
         foreach (PrinterProfileSO printer in database.allPrinters)
         {
-            SpawnItem(printer);
+            SpawnItem(printer, onItemSelected);
         }
     }
 
-    private void SpawnItem(CatalogItemSO item)
+    public void CloseCatalog()
+    {
+        if (catalogPanel != null) catalogPanel.SetActive(false);
+    }
+
+    private void SpawnItem(CatalogItemSO item, Action<CatalogItemSO> onItemSelected)
     {
         CatalogItemUI newItemUI = Instantiate(itemPrefab, contentPanel);
 
-        newItemUI.Setup(item);
+        newItemUI.Setup(item, onItemSelected);
     }
 
     private void ClearContainer()

@@ -15,6 +15,12 @@ public class InventoryUIManager : MonoBehaviour
     [Tooltip("Text to display the name of the current list (e.g., 'Owned Spools').")]
     public TextMeshProUGUI listTitleText;
 
+    [Tooltip("Reference to the Catalog Manager so we can open it as a popup.")]
+    public CatalogUIManager catalogManager;
+
+    [Tooltip("Reference to the adaptive details page.")]
+    public SpoolDetailsUIManager detailsManager;
+
     [Header("State")]
     public string activeListName = "Owned Spools";
 
@@ -67,6 +73,36 @@ public class InventoryUIManager : MonoBehaviour
 
     public void OnAddButtonClicked()
     {
-        Debug.Log("[Inventory UI] Add button clicked! Time to open the Master Catalog.");
+        Debug.Log("[Inventory UI] Add button clicked! Opening the Master Catalog.");
+
+        if (catalogManager != null)
+        {
+            catalogManager.OpenFilamentCatalog(OnCatalogItemSelected);
+        }
+    }
+
+    private void OnCatalogItemSelected(CatalogItemSO selectedItem)
+    {
+        if (selectedItem is FilamentProfileSO profile)
+        {
+            catalogManager.CloseCatalog();
+
+            if (detailsManager != null)
+            {
+                detailsManager.OpenForAdd(profile, activeListName);
+            }
+            else
+            {
+                InventoryManager.Instance.AddSpoolToList(activeListName, profile);
+            }
+        }
+    }
+
+    public void OpenSpoolDetails(SpoolInstance spool)
+    {
+        if (detailsManager != null)
+        {
+            detailsManager.OpenForEdit(spool);
+        }
     }
 }
