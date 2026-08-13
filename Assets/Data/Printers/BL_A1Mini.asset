@@ -22,7 +22,13 @@ MonoBehaviour:
   buildVolume: {x: 180, y: 180, z: 180}
   isEnclosed: 0
   maxNozzleTemperature: 300
-  maxBedTemperature: 100
+  maxBedTemperature: 80
   supportedMaterials:
   - {fileID: 11400000, guid: 84e08aa5b948f334e80f3a99576f6223, type: 2}
+  - {fileID: 11400000, guid: f9222f1182cb2f54c9aeef80a6c4e128, type: 2}
+  - {fileID: 11400000, guid: 1edf97f00b2465c4fafe912ff2f7e052, type: 2}
   - {fileID: 11400000, guid: 194a38e36d2a83746afdcebfb685ac70, type: 2}
+  - {fileID: 11400000, guid: 1576c2f6c9787c747bb6894cf2839972, type: 2}
+  - {fileID: 11400000, guid: e6ef4c6d516d0d04fa513a30c403c9aa, type: 2}
+  - {fileID: 11400000, guid: 526d0cf4c7fcd984794f594c8efa73b2, type: 2}
+  - {fileID: 11400000, guid: ba0ce2a438b5bc445b85fd234db044da, type: 2}

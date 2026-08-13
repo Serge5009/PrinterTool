@@ -10,19 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e14eb214c52c488489dd84259a67cbff, type: 3}
-  m_Name: BL_A1L
+  m_Name: BL_A2L
   m_EditorClassIdentifier: Assembly-CSharp::PrinterProfileSO
-  uniqueId: BL_A1L
+  uniqueId: BL_A2L
   brand: {fileID: 11400000, guid: a89e39dfbab81444caed78f49928ddfa, type: 2}
-  itemName: A1L
+  itemName: A2L
   nickname: 
   icon: {fileID: 0}
   description: 
   defaultPrinterType: {fileID: 11400000, guid: 32965844cfb7ea34b94b4421d5050e59, type: 2}
-  buildVolume: {x: 330, y: 325, z: 320}
+  buildVolume: {x: 330, y: 320, z: 325}
   isEnclosed: 0
   maxNozzleTemperature: 300
-  maxBedTemperature: 100
+  maxBedTemperature: 80
   supportedMaterials:
   - {fileID: 11400000, guid: 84e08aa5b948f334e80f3a99576f6223, type: 2}
+  - {fileID: 11400000, guid: f9222f1182cb2f54c9aeef80a6c4e128, type: 2}
+  - {fileID: 11400000, guid: 1edf97f00b2465c4fafe912ff2f7e052, type: 2}
   - {fileID: 11400000, guid: 194a38e36d2a83746afdcebfb685ac70, type: 2}
+  - {fileID: 11400000, guid: 1576c2f6c9787c747bb6894cf2839972, type: 2}
+  - {fileID: 11400000, guid: e6ef4c6d516d0d04fa513a30c403c9aa, type: 2}
+  - {fileID: 11400000, guid: 526d0cf4c7fcd984794f594c8efa73b2, type: 2}
+  - {fileID: 11400000, guid: ba0ce2a438b5bc445b85fd234db044da, type: 2}

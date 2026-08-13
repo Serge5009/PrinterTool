@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14eb214c52c488489dd84259a67cbff, type: 3}
+  m_Name: BL_H2C
+  m_EditorClassIdentifier: Assembly-CSharp::PrinterProfileSO
+  uniqueId: BL_H2C
+  brand: {fileID: 11400000, guid: a89e39dfbab81444caed78f49928ddfa, type: 2}
+  itemName: H2C
+  nickname: 
+  icon: {fileID: 21300000, guid: 76089b416951e81468c56f3a9d255aad, type: 3}
+  description: 
+  defaultPrinterType: {fileID: 11400000, guid: 8e90b2b5da138164e8ebd9c7c2ba2045, type: 2}
+  buildVolume: {x: 330, y: 320, z: 320}
+  isEnclosed: 1
+  maxNozzleTemperature: 350
+  maxBedTemperature: 120
+  supportedMaterials:
+  - {fileID: 11400000, guid: 84e08aa5b948f334e80f3a99576f6223, type: 2}
+  - {fileID: 11400000, guid: f9222f1182cb2f54c9aeef80a6c4e128, type: 2}
+  - {fileID: 11400000, guid: 1edf97f00b2465c4fafe912ff2f7e052, type: 2}
+  - {fileID: 11400000, guid: 194a38e36d2a83746afdcebfb685ac70, type: 2}
+  - {fileID: 11400000, guid: 1576c2f6c9787c747bb6894cf2839972, type: 2}
+  - {fileID: 11400000, guid: e6ef4c6d516d0d04fa513a30c403c9aa, type: 2}
+  - {fileID: 11400000, guid: 526d0cf4c7fcd984794f594c8efa73b2, type: 2}
+  - {fileID: 11400000, guid: ba0ce2a438b5bc445b85fd234db044da, type: 2}
+  - {fileID: 11400000, guid: fbbe2369a79b5914eb5b1d02ed3bf4d2, type: 2}
+  - {fileID: 11400000, guid: c525ee2dbfab78743b4b18b843c762fc, type: 2}
+  - {fileID: 11400000, guid: bea4463c3a82da64fb77a859953b5999, type: 2}
+  - {fileID: 11400000, guid: 89e6955309341f6408b8ad4a85c60f69, type: 2}
+  - {fileID: 11400000, guid: 9721a2f87079b014eb720f7082521da6, type: 2}
+  - {fileID: 11400000, guid: 11a576681391c7747acdc8d1e69167c1, type: 2}
+  - {fileID: 11400000, guid: 5e1233c7fddd92345a54505cd4926604, type: 2}
+  - {fileID: 11400000, guid: 061aec8832c035244a8dc021c45c4333, type: 2}
+  - {fileID: 11400000, guid: 1c0d4d3686b3955478f11ddf0060421c, type: 2}
+  - {fileID: 11400000, guid: 92243871c4057564c96131bc9ed37e78, type: 2}
+  - {fileID: 11400000, guid: a6d3d43582f49ea418a3d070f2ca4eed, type: 2}
+  - {fileID: 11400000, guid: edb13b4077028454ab817d6933a64a74, type: 2}
+  - {fileID: 11400000, guid: 21a3599bdabb77747a330b6853b68e21, type: 2}
+  - {fileID: 11400000, guid: c7ccd5cd993341e418a4f8163f2bcdef, type: 2}
+  - {fileID: 11400000, guid: 486a8de2a495eda4bae5d5d1fc02ee1f, type: 2}
