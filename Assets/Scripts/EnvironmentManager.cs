@@ -16,6 +16,10 @@ public class EnvironmentManager : MonoBehaviour
     [Tooltip("A dedicated parent object in the scene to hold all spawned models.")]
     public Transform modelContainer;
 
+    [Header("Camera Configuration")]
+    [Tooltip("Reference to our orbital camera so we can tell it to frame objects.")]
+    public CameraController mainCamera;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -62,6 +66,12 @@ public class EnvironmentManager : MonoBehaviour
         bedCube.position = new Vector3(0, -(bedThickness / 2f), 0);
 
         Debug.Log($"[EnvironmentManager] Bed resized to {width}x{depth}mm.");
+
+        if (mainCamera != null && modelContainer != null && modelContainer.childCount == 0)
+        {
+            Bounds bedBounds = new Bounds(Vector3.zero, new Vector3(width * 0.8f, 10f, depth * 0.8f));
+            mainCamera.FrameBounds(bedBounds, 1.0f);
+        }
     }
 
     public void PlaceModelOnBed(GameObject modelRoot, Bounds combinedBounds)
@@ -70,11 +80,21 @@ public class EnvironmentManager : MonoBehaviour
         {
             modelRoot.transform.SetParent(modelContainer);
         }
+
+
         float offsetX = -combinedBounds.center.x;
         float offsetZ = -combinedBounds.center.z;
         float offsetY = -combinedBounds.min.y;
 
         modelRoot.transform.position = new Vector3(offsetX, offsetY, offsetZ);
+
+        if (mainCamera != null)
+        {
+            Vector3 worldCenter = new Vector3(0, combinedBounds.extents.y, 0);
+            Bounds worldBounds = new Bounds(worldCenter, combinedBounds.size);
+
+            mainCamera.FrameBounds(worldBounds, 1.2f);
+        }
 
         Debug.Log($"[EnvironmentManager] Model placed. Dimensions: {combinedBounds.size.x:F1}x{combinedBounds.size.z:F1}x{combinedBounds.size.y:F1}mm");
     }
