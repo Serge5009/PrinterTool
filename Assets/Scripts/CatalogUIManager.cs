@@ -45,6 +45,7 @@ public class CatalogUIManager : MonoBehaviour
     {
         if (skipBrandButton != null)
         {
+            skipBrandButton.onClick = new Button.ButtonClickedEvent();
             skipBrandButton.onClick.AddListener(OnSkipBrandClicked);
         }
     }
@@ -65,9 +66,11 @@ public class CatalogUIManager : MonoBehaviour
         ShowBrandSelection();
     }
 
-    public void OpenPrinterCatalog(Action<CatalogItemSO> onItemSelected = null)
+    public void OpenPrinterCatalog(Action<CatalogItemSO> onItemSelected = null, Action<BrandSO> onCustomSelected = null)
     {
         currentCallback = onItemSelected;
+        customAddCallback = onCustomSelected;
+        standaloneBrandCallback = null;
         isSelectingFilament = false;
 
         if (catalogPanel != null)
@@ -112,8 +115,9 @@ public class CatalogUIManager : MonoBehaviour
 
         if (addCustomButton != null)
         {
-            addCustomButton.gameObject.SetActive(isSelectingFilament);
-            addCustomButton.onClick.RemoveAllListeners();
+            addCustomButton.gameObject.SetActive(customAddCallback != null);
+
+            addCustomButton.onClick = new Button.ButtonClickedEvent();
             addCustomButton.onClick.AddListener(OnAddCustomClicked);
         }
 
@@ -189,6 +193,7 @@ public class CatalogUIManager : MonoBehaviour
     private void SpawnItem(CatalogItemSO item, Action<CatalogItemSO> onItemSelected)
     {
         CatalogItemUI newItemUI = Instantiate(itemPrefab, contentPanel);
+
         newItemUI.Setup(item, onItemSelected);
     }
 

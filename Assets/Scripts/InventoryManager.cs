@@ -10,8 +10,8 @@ public class InventoryManager : MonoBehaviour
 
     public UserSaveData ActiveData { get; private set; }
     public event Action OnInventoryChanged;
-
     private Dictionary<string, FilamentProfileSO> runtimeCustomProfiles = new Dictionary<string, FilamentProfileSO>();
+    private Dictionary<string, PrinterProfileSO> runtimeCustomPrinters = new Dictionary<string, PrinterProfileSO>();
 
     private string SaveFilePath => Application.persistentDataPath + "/user_inventory.json";
 
@@ -55,6 +55,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         GenerateRuntimeCustomProfiles();
+        GenerateRuntimeCustomPrinters();
         OnInventoryChanged?.Invoke();
     }
 
@@ -109,6 +110,41 @@ public class InventoryManager : MonoBehaviour
             }
 
             runtimeCustomProfiles[customData.profileId] = tempSO;
+        }
+    }
+
+    private void GenerateRuntimeCustomPrinters()
+    {
+        runtimeCustomPrinters.Clear();
+        if (ActiveData.customPrinters == null) return;
+
+        foreach (var customData in ActiveData.customPrinters)
+        {
+            PrinterProfileSO tempSO = ScriptableObject.CreateInstance<PrinterProfileSO>();
+            tempSO.uniqueId = customData.profileId;
+            tempSO.itemName = customData.customName;
+            tempSO.buildVolume = customData.buildVolume;
+            tempSO.isEnclosed = customData.isEnclosed;
+            tempSO.maxNozzleTemperature = customData.maxNozzleTemp;
+            tempSO.maxBedTemperature = customData.maxBedTemp;
+
+            if (AppManager.Instance != null && AppManager.Instance.masterDatabase != null)
+            {
+                tempSO.brand = AppManager.Instance.masterDatabase.allBrands.FirstOrDefault(b => b.brandName == customData.customBrandId);
+                tempSO.defaultPrinterType = AppManager.Instance.masterDatabase.allPrinterTypes.FirstOrDefault(t => t.typeId == customData.typeId);
+
+                tempSO.supportedMaterials = new List<MaterialFamilySO>();
+                if (customData.supportedMaterialIds != null)
+                {
+                    foreach (string fId in customData.supportedMaterialIds)
+                    {
+                        var fam = AppManager.Instance.masterDatabase.allMaterialFamilies.FirstOrDefault(f => f.familyAbbreviation == fId);
+                        if (fam != null) tempSO.supportedMaterials.Add(fam);
+                    }
+                }
+            }
+
+            runtimeCustomPrinters[customData.profileId] = tempSO;
         }
     }
 
@@ -188,5 +224,61 @@ public class InventoryManager : MonoBehaviour
         if (profile != null) return profile.displayColor;
 
         return Color.white;
+    }
+
+    public PrinterInstance AddPrinter(PrinterProfileSO profile)
+    {
+        PrinterInstance newPrinter = new PrinterInstance(profile.uniqueId);
+        ActiveData.ownedPrinters.Add(newPrinter);
+        SaveData();
+        return newPrinter;
+    }
+
+    public PrinterInstance CreateAndAddCustomPrinter(string name, string brandId, Vector3 volume, bool enclosed, int maxNozzle, int maxBed, string typeId, List<string> materials)
+    {
+        CustomPrinterData newCustom = new CustomPrinterData
+        {
+            customName = name,
+            customBrandId = brandId,
+            buildVolume = volume,
+            isEnclosed = enclosed,
+            maxNozzleTemp = maxNozzle,
+            maxBedTemp = maxBed,
+            typeId = typeId,
+            supportedMaterialIds = materials ?? new List<string>()
+        };
+
+        ActiveData.customPrinters.Add(newCustom);
+
+        GenerateRuntimeCustomPrinters();
+
+        PrinterProfileSO profile = runtimeCustomPrinters[newCustom.profileId];
+        return AddPrinter(profile);
+    }
+
+    public PrinterProfileSO GetProfileForPrinter(PrinterInstance printer)
+    {
+        if (AppManager.Instance != null && AppManager.Instance.masterDatabase != null)
+        {
+            var profile = AppManager.Instance.masterDatabase.allPrinters.FirstOrDefault(p => p.uniqueId == printer.catalogItemId);
+            if (profile != null) return profile;
+        }
+
+        if (runtimeCustomPrinters.TryGetValue(printer.catalogItemId, out PrinterProfileSO customProfile))
+        {
+            return customProfile;
+        }
+
+        return null;
+    }
+
+    public string GetPrinterDisplayName(PrinterInstance printer)
+    {
+        if (!string.IsNullOrEmpty(printer.customNickname)) return printer.customNickname;
+
+        var profile = GetProfileForPrinter(printer);
+        if (profile != null) return profile.itemName;
+
+        return "Unknown Printer";
     }
 }

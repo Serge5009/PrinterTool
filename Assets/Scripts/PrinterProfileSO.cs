@@ -4,6 +4,10 @@ using System.Collections.Generic;
 [CreateAssetMenu(fileName = "NewPrinterProfile", menuName = "3DPrintApp/Catalog/Printer Profile")]
 public class PrinterProfileSO : CatalogItemSO
 {
+    [Header("Visual Model")]
+    [Tooltip("The generic 3D model type to use for this printer (can be overridden by the user).")]
+    public PrinterTypeSO defaultPrinterType;
+
     [Header("Physical Specifications")]
     [Tooltip("The printable area in millimeters: X (Width), Y (Depth), Z (Height)")]
     public Vector3 buildVolume;

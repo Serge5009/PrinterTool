@@ -15,8 +15,10 @@ MonoBehaviour:
   uniqueId: BL_A1Mini
   brand: {fileID: 11400000, guid: a89e39dfbab81444caed78f49928ddfa, type: 2}
   itemName: A1 Mini
+  nickname: 
   icon: {fileID: 0}
   description: 
+  defaultPrinterType: {fileID: 11400000, guid: 32965844cfb7ea34b94b4421d5050e59, type: 2}
   buildVolume: {x: 180, y: 180, z: 180}
   isEnclosed: 0
   maxNozzleTemperature: 300

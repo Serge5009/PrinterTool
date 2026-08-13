@@ -15,8 +15,10 @@ MonoBehaviour:
   uniqueId: CR_Ender5Max
   brand: {fileID: 11400000, guid: f2cecfc7699d32840b33d210039428b2, type: 2}
   itemName: Ender-5 Max
+  nickname: 
   icon: {fileID: 0}
   description: 
+  defaultPrinterType: {fileID: 11400000, guid: 8e90b2b5da138164e8ebd9c7c2ba2045, type: 2}
   buildVolume: {x: 400, y: 400, z: 400}
   isEnclosed: 0
   maxNozzleTemperature: 300

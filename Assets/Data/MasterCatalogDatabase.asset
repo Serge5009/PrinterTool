@@ -73,6 +73,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 071abde91f9e2cf4dae3c1ae46426b7a, type: 2}
   - {fileID: 11400000, guid: edd74cf2799fab94cb4eb718104deab3, type: 2}
   - {fileID: 11400000, guid: 7ccb8ba1ee10ec24c9f870b3d6ccda4a, type: 2}
+  allPrinterTypes:
+  - {fileID: 11400000, guid: 8e90b2b5da138164e8ebd9c7c2ba2045, type: 2}
+  - {fileID: 11400000, guid: 32965844cfb7ea34b94b4421d5050e59, type: 2}
   allPrinters:
   - {fileID: 11400000, guid: c541c2ba1006fad4a867cd4a0e96bd24, type: 2}
   - {fileID: 11400000, guid: a276e63e7b07c624fb7370217f749236, type: 2}
