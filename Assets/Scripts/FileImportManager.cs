@@ -32,13 +32,11 @@ public class FileImportManager : MonoBehaviour
 
 #elif UNITY_ANDROID
 
-        // Define the filters for Android using NativeFilePicker's conversion
         string[] fileTypes = new string[] { 
             NativeFilePicker.ConvertExtensionToFileType("stl"), 
             NativeFilePicker.ConvertExtensionToFileType("3mf") 
         };
 
-        // Open native Android file picker
         NativeFilePicker.PickFile((path) =>
         {
             if (path == null)
@@ -135,6 +133,13 @@ public class FileImportManager : MonoBehaviour
             }
         }
 
-        currentModel.transform.position = -combinedBounds.center;
+        if (EnvironmentManager.Instance != null)
+        {
+            EnvironmentManager.Instance.PlaceModelOnBed(currentModel, combinedBounds);
+        }
+        else
+        {
+            currentModel.transform.position = new Vector3(-combinedBounds.center.x, -combinedBounds.min.y, -combinedBounds.center.z);
+        }
     }
 }
